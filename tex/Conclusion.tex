@@ -1,4 +1,57 @@
-\chapter{Conclusion and ongoing work}
+\chapter{Discussion and future work}
 \label{cha:conclusion}
 
-\Blindtext[2]
+\section{Discussion on omic data integration}
+The purpose of this thesis is to develop novel modeling methods predicting health outcomes, based on genomics data. As the types and the volume of genomics data are huge thanks to advanced high-throughput sequencing technologies, as well as the ever-growing annotation databases, there is increased need to integrate multiple types of genomics data, annotation data into modeling process. Because related variables provide more information to the health outcomes of interest, and hence improve prediction performance. The traditional method is modeling one type of genomics data at a time, and combine the models in some form. As to utilizing annotation data, summary statistics, it is usually performed after modeling genomics data. This style of modeling different genomics data separately may ignore the interplay between them, the collective effect on the outcome. In this thesis, we introduced the concept meta-features, the features of the features, to incorporate external data. And we also introduced a meta-feature data matrix $\bm{Z}$ that systematically stores the external data. In the two methods developed in the thesis, chapter \ref{cha:xrnetcox}, \ref{cha:xtunecox}, we mainly discussed how to put annotation information into meta-feature matrix. That is, if we have $p$ genomic features, $q$ functional gene sets (meta-features), the meta-feature matrix $\bm{Z}$ will have dimension $p\times q$, each row represents one genomic feature and has values of 0 or 1 indicating whether this genomic feature belongs to a gene set (1 indicates it belongs to the gene set, and 0 not). However, the usage of meta-feature matrix does not limit to annotation data, in fact, it can accommodate many types of information. We discuss 2 situations to show the flexibility of putting external data into meta-feature matrix $\bm{Z}$.
+
+\begin{itemize}
+    \item There are 3 types genomics data, gene expressions, single nucleotide polymorphisms (SNPs), DNA methylation  to be integrated into the modeling process. The meta-feature matrix tells which genomic feature is SNP, gene expression, or methylation. Table \ref{table:d1} shows the indicator meta-feature matrix. For example, ILMN\_343291 is a microarray probe, gene expression; rs10853372 is a SNP locus. 
+    \begin{table}[tbh]
+    \centering
+    \def\arraystretch{1.5}
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+         & \textbf{Gene expression} & \textbf{SNP} & \textbf{Methylation} \\ 
+        \specialrule{.1em}{.05em}{.05em}
+        ILMN\_343291 & 1 & 0 & 0 \\ 
+        \hline
+        rs10853372 & 0 & 1 & 0 \\ 
+        \hline
+        ILMN\_1651210 & 1 & 0 & 0 \\
+        \hline
+        463100A3 & 0 & 0 & 1 \\
+        \hline
+        \vdots & \vdots & \vdots & \vdots \\
+    \end{tabular}
+    \caption{Meta-feature matrix $\bm{Z}$ for multiple types of genomics data}
+    \label{table:d1}
+    \end{table}
+    
+    \item There are summary statistics from similar studies on the same set of genomic features. These statistics from meta-analysis can be highly informative. They include p-values, hazard ratios, and source of features. In table \ref{table:d2}, gene BAX has a p\_value 0.0006 associated with the outcome, hazard ratio is 0.7605, the reason being included in the model is from previous GWAS studies. This is a hybrid matrix holding continuous values and indicator values: continuous values like p\-values, hazard ratios gives importance of the features; indicator variable tells the reason why the feature is included. 
+    \begin{table}[tbh]
+    \centering
+    \def\arraystretch{1.5}
+    \begin{tabular}{|c|c|c|c|c|c}
+        \hline
+         & \textbf{p\_value} & \textbf{Hazard ratio} & \textbf{Literature} & \textbf{GWAS}  \\ 
+        \specialrule{.1em}{.05em}{.05em}
+        BAX & 0.0006 & 0.7605 & 0 & 1 & \dots \\ 
+        \hline
+        IL6 & 0.2611 & -0.2077 & 1 & 0 & \dots \\ 
+        \hline
+        LDHB & $8.78\times 10^{-6}$ & 0.0768 & 0 & 1 & \dots \\
+        \hline
+        \vdots & \vdots & \vdots & \vdots & \vdots & $\ddots$ \\
+    \end{tabular}
+    \caption{Meta-feature matrix $\bm{Z}$ for summary statistics}
+    \label{table:d2}
+    \end{table}
+\end{itemize}
+
+With the above examples, we are shown the flexibility of the meta-feature matrix housing external information. Through the meta-feature matrix, we can integrate multiple types of genomics data, genomic annotation data, summary statistics from similar studies, and so on. It is the heart of our modeling process to integrate extra information that might be useful to prediction.
+
+\section{Discussion on regularization and feature selection}
+
+
+
+\section{last one, Discussion on statistical inference}

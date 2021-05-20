@@ -16,6 +16,8 @@
 \usepackage{hyperref}
 \usepackage{setspace}
 \usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{booktabs}
 
 % Line spacing and margins in compliance with USC graduate school guidelines.
 \usepackage[margin=1in,footskip=.5in]{geometry}
@@ -27,7 +29,10 @@
 \usepackage[OT1]{fontenc} % font encoding for xelatex
 \usepackage{mathtools}
 \usepackage{amsmath}
+\DeclareMathOperator*{\argmin}{argmin}
 \usepackage{amssymb}
+\usepackage{bm}
+\usepackage{enumerate}
 
 % Optional packages: graphics
 \usepackage{graphicx}
@@ -38,23 +43,26 @@
 
 % Optional packages: bibliography with BibLaTeX.
 % Comment this section out if you prefer BibTeX.
-\usepackage[
-    style=nature,
-    sorting=none,
-    isbn=false,
-    url=false,
-    doi=true,
-    eprint=false,
-    date=year,
-    maxnames=6,
-    minnames=6
-]{biblatex}
-\AtEveryBibitem{\clearfield{eventtitle}} 
-\AtEveryCitekey{\clearfield{eventtitle}}
-\AtEveryBibitem{\clearfield{pagetotal}} 
-\AtEveryCitekey{\clearfield{pagetotal}}
-\addbibresource{references.bib}
+%\usepackage[
+%    style=nature,
+%    sorting=none,
+%    isbn=false,
+%    url=false,
+%    doi=true,
+%    eprint=false,
+%    date=year,
+%    maxnames=6,
+%    minnames=6
+%]{biblatex}
+%\AtEveryBibitem{\clearfield{eventtitle}} 
+%\AtEveryCitekey{\clearfield{eventtitle}}
+%\AtEveryBibitem{\clearfield{pagetotal}} 
+%\AtEveryCitekey{\clearfield{pagetotal}}
+%\addbibresource{references.bib}
 
+\usepackage[authoryear]{natbib}
+\bibliographystyle{plainnat}
+\setcitestyle{}
 % Filler text for formatting. Comment these lines out for real writing.
 \usepackage[english]{babel}
 \usepackage{blindtext}
@@ -67,9 +75,9 @@
 %-----------------------------------------------------------------------------
 
 % Volume name could be added as option, e.g. `[Volume I]`.
-\title{\textbf{\Large{Writing a thesis at USC}}}
+\title{\textbf{\Large{Prediction and Feature Selection with Regularized Regression in Integrative Genomics}}}
 
-\author{Tommy T. Trojan}
+\author{Dixin Shen}
 
 % Committee list is only shown in `proposal` layout.
 \committee{A.~Adams & (Chair)\\*
@@ -79,8 +87,8 @@
            E.~Emory & (Outside Member)}
 
 % Submission information is only shown in `final` layout.
-\majorfield{Civil Engineering}
-\submitdate{December 2020}  % Must be one of the three dates allowed in the guideline
+\majorfield{BIOSTATISTICS}
+\submitdate{August 2021}  % Must be one of the three dates allowed in the guideline
 
 % Make sure everything, specially your title page, exactly follows the guideline:
 % https://graduateschool.usc.edu/wp-content/themes/fictional-university-theme/assets/doc/Manuscript_Formatting_and_Documentation_Styles.pdf
@@ -93,8 +101,8 @@
 \begin{preface}
 
   % Dedication Page, which is truly unnecessary.
-  \prefacesection[Dedication]{}
-  \input{dedication}
+  %\prefacesection[Dedication]{}
+  %\input{dedication}
 
   % Acknowledgement Page, which is also unnecessary for proposals.
   \prefacesection{Acknowledgements}
@@ -117,7 +125,10 @@
 \include{Introduction}
 
 % Research Topic 1
-\include{ResearchTopic1}
+\include{xrnetcox}
+
+% Research Topic 2
+\include{xtunecox}
 
 % More Research Topics
 % \include{ResearchTopic2}
@@ -132,10 +143,10 @@
 \addcontentsline{toc}{chapter}{References}%
 \markboth{References}{References}%
 % If you use BibLaTeX
-\printbibliography[title=References]
+%\printbibliography[title=References]
 % If you use BibTeX
 % \bibliographystyle{plain}
-% \bibliography{references}
+\bibliography{references}
 \end{singlespace}
 
 % Appendices
