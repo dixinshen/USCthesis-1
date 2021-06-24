@@ -3,91 +3,72 @@
 
 \section{Background}
 \label{sec:Background}
+Technological advances of the recent decades such as microarrays and next generation sequencing (NGS) have revolutionized our ability to interrogate the structure, function, and regulation of the genome at an unprecedented scale. It has accelerated the investigation of the effects of the genome, epigenome and transcriptome on human health, and opened the door to personalized medicine. 
 
-Translation of findings from genomics study to inform medical practices is a highly important research area. Genomics suggests disease traits like disease stage, overall survival therefore they can be prognostic factors; interacts with medical interventions so that they modify effects of such interventions. As a result, the impact of genomics-based predictive models on clinical decisions could be profound. 
+Personalized medicine refers to our ability to diagnose and predict health outcomes and response to treatment based on an individual's `omic' profile, so that treatment can be taylored to optimize the individual's health outcomes. 
 
-Recent technological advances, next generation sequencing (NGS), which refers to the deep, high-throughput sequencing technology has made possible to generate massively parallel and high resolution DNA sequence data. Various genomic applications based on the sequencing data such as genome-wide detection of genetic variations like copy number variations (CNV), single nucleotide polymorphism (SNPs), rare variants; DNA methylation profiling, mRNA expression profiling, and so on have accelerated investigation of the effects of genomic information on health care outcomes. NGS generated data can be classified as genomics, transcriptomics, and epigenomics (figure \ref{fig:NGS_data}). At the genomics level, which is produced by whole genome sequencing (WGS) and whole exome sequencing (WES), we look at point mutations including SNPs and rare variants, small insertions and deletions, copy number variations, and structural variation. Transcriptomics data, gene expression profiles are produced by RNA sequencing (RNA-seq). Epiginomics is the study of epigenetic modifications on the genetic material of a cell, in which epigenetics are reversible modifications on the way genes operate like switching on and off, altering expression levels without altering the DNA sequence. Methylation profiles, histone modification, transcription factor binding are typical data types of epiginomics, produced by bisulfite sequencing and chromatin immunoprecipitation sequencing (ChIP-Seq). 
+On top of genomic, transcriptomic and epigenomic  profiles measured on individuals, there sits a layer of `meta knowledge' about gene function, gene products and gene regulation, that is critical for interpreting the results of studies of genomics and disease. These `meta-features' can include functional annotations and previous studies. 
 
-\begin{figure}[tbh]
-  \centering
-  \includegraphics[scale=0.8]{NGS_data}
-  \caption[NGS data analysis classification]{
-    NGS data analysis classification. The figure is from \url{http://www.biostat.jhsph.edu/~khansen/enar2012.html}.
-  }
-  \label{fig:NGS_data}
-\end{figure}
-
-Apart from multiple genomics data types generated from modern technologies, these data has their own underlying characteristics. Genomic annotation databases contains information about biological pathways and functional gene sets indicating a group of genes working collectively on one particular functionality. Examples of such annotation data bases are molecular signature database (MSigDB), gene ontology databases such as KEGG and reactome, and the chromosome on which a gene is located. There are also summary statistics like p-values, odds ratios, hazard ratios from external studies with related objective on the same set of genomics data. These information highlights the characteristics of genomic features, which are the features of genomic features. We call them meta-features from here and after. The meta-features reveal information on two fundamental characteristics of genomics, grouping and ordering. Gene annotations provide grouping information related to disease traits, while summary statistics provide ordering of genomic features, which indicates the importance of the features for a class of disease. 
-
-Genomics profile has impact on disease traits, treatment effects. For example, certain genomics profile hints the disease stage a patient is at; patients with different genomics profiles respond differently to a treatment. When there are different health care options available, patient's genomics profile can guide physicians to apply the best treatment for the individual. This concept of personalized health care can maximize benefits for both health care providers and patients. One of the important disease trait is diagnosis, especially disease early detection while no symptoms presented. Diseases like cancer which can be cured if treated in early stages can benefit most from it. Genomics-based predictive model not only offers the opportunity facilitate early treatment, selection of effective health cares, it also provide insights on the associations between disease traits and set of genomic features. Some of the results can turn into better understanding of the diseases and further development of novel treatments.
-
-With the huge amount of genomics data in multiple categories, and ever growing annotation databases, the purpose of this thesis is to integrate multiple types of genomics data, meta-features into predictive modeling process, in the hope of improving model prediction performance, producing interpretable results.
+The purpose of this thesis is to develop high-dimensional statistical methods to integrate  genomics data with meta-features into the predictive modeling process, with the ultimate goal of improving  prediction performance and producing more interpretable results.
 
 \section{Genomics-based prediction of disease traits}
 \label{sec:Prediction}
-Among the many usages of predicting disease traits based on genomics data, we look at two important contexts of the applications: 1) prediction of disease prognostics, namely disease course, disease related measurements change over time, and survival traits. Model selected genomic features to be associated with the disease trait are prognostic biomarkers. 2) prediction of treatment effect, based on patients' genomics profile, how they respond to a treatment. Model indicated genomic features are predictive biomarkers for the treatment. 
+Among the many uses of prediction of disease outcomes based on genomic data, we can distinguish between two important applications: 1) disease prognosis, namely prediction of the course of disease, and survival. We refer to genomic features predictive of these outcomes as prognostic biomarkers; 2) prediction of treatment effect, based on patients' genomics profiles, i.e., how patients they respond to a treatment. We refer to genomic features predictive of these outcomes as predictive biomarkers \citep{mandrekar2010predictive}. 
 
-In this thesis, the focus is predictive modeling in cancer genomics. As sequencing-based assays for tissue biopsies and the amount of data generated from NGS platforms are widely used, it has enabled clinically actionable insights for many types of cancers. Various data mining, data analysis techniques have been explored in this area. Among them, predictive modeling can certainly play an important role.
+In this thesis, the focus is on predictive modeling in cancer genomics, as array- and sequencing-based assays of tumor tissue has enabled clinically actionable insights for many types of cancers. We give a brief overview of some of the predictive modeling techniques commonly used. 
 
-We give a brief overview of some of the high profile predictive modeling techniques for genomics. 
-
-\subsection{Genome-wide association studies}
-Genome-wide association study (GWAS) is an approach to examine genetic variations among study subjects, determine their risk and predictive power of particular diseases, or response to certain treatments \citep{manolio2010genomewide}. The method involves scanning the genomes from the subjects to collect genetic variation information that are related to disease traits. Those genetic markers, either used alone or combined with traditional non-genetic risk prediction, have the potential to improve risk-prediction accuracy, which might beneﬁt clinical diagnose and personalized treatment.
-
-To carry out a genome-wide association study, two groups of subjects are identified: people with the disease being studied (cases) and similar people without the disease being studied (controls); or people with different phenotypes for a particular trait, for example blood pressure, height, are identified. Each subject's complete set of DNA, genome is acquired and microarray chip technology or NGS platforms are applied to obtain common genetic variations, SNPs. It scans the entire genome to find statistically significant variations that are associated with the disease, using some form of family-wise error rate control. If a genetic marker is found to be statistically significantly associated with studied disease, it could be a prognostic factor for the disease, and the locus of the marker could be disease causing region of human genome. The associated variant can be causal to the disease, or just be located beside the actual genetic marker. Therefore, researchers re-sequence the region to further identify the causal genetic marker. 
-
-GWAS can certainly contribute to personalized medicine. With the identified genetic markers, health care providers will be able to offer individualized information on their risk of developing diseases, tailor preventive programs, and choose best possible treatments. Over the years, genetic variations involved in Type II diabetes, Parkinson's disease, prostate cancer, and so on have been found.
 
 \subsection{Regression}
-Regression methods, linear models, are common techniques for constructing predictive models. For quantitative traits, it is linear regression; for dichotomous traits, logistic regression is deployed; for survival traits, Cox's proportional hazards regression, parametric regression models with various survival time distribution assumptions are for choices. Regression methods construct likelihood functions based on linear predictors. The input is a response vector $\bm{Y}$ of length $n$ (for survival outcomes, it is a response matrix of dimension $n \times 2$, survival time and censoring status) and a data/design matrix $\bm{X}$ of dimension $n \times p$, where $n$ is the number of independent samples, $p$ is the number of features. Then the linear predictors for each of the $n$ samples are defined as $\bm{\beta}^T\bm{x}_i$, where $\bm{x}_i$ is the features for the $i$th sample, $\bm{\beta}$ is the regression coefficients to be estimated. Negative log likelihood for each of the outcome types are listed below, i.e, the optimization problems for each of the regression models:
+Regression methods are widely used techniques for constructing predictive models. The most popular are linear regression for quantitative traits, logistic regression for binary and multi-category traits, and Cox's proportional hazards regression for survival traits. These regression methods rely on linear combinations of the genomic features/predictors to predict the outcome of interest. The training data consists of a response vector $\bm{Y}$ of length $n$ (for survival outcomes, it is a response matrix of dimension $n \times 2$, survival time and censoring status) and a data/design matrix $\bm{X}$ of dimension $n \times p$, where $n$ is the number of independent samples, $p$ is the number of features. The linear predictors for each of the $n$ samples are defined as $\bm{\beta}^T\bm{x}_i$, where $\bm{x}_i$ is the features for the $i^{th}$ sample, $\bm{\beta}$ is the regression coefficients to be estimated. The optimization problems for the linear and logistic cases are shown below:
 \begin{align}
     &\min_{\bm{\beta}} \left\{\frac{1}{2n} \sum_{i=1}^{n} (y_i-\bm{\beta}^T\bm{x}_i)^2 \right\}, \qquad\qquad\qquad\quad\;\: \text{linear regression} \label{eq1.1} \\
     &\min_{\bm{\beta}} \left\{-\frac{1}{n} \sum_{i=1}^{n} \left[y_i\bm{\beta}^T\bm{x}_i-\ln(1+e^{\bm{\beta}^T\bm{x}_i})\right]\right\}, \qquad \text{logistic regression} \label{eq1.2}
 \end{align}
-Cox's proportional hazards regression will be showed in detail in the following sections as the main medical traits to be dealt with. Incorporation of covariates and interaction effects are possible with regression, as opposed to GWAS, risk predictions are given by effect sizes of each significant hits.
 
-There are several assumptions made when applying regression. First, the number of features $p$ should be less than the number of samples $n$ for the model to be able to fit. However, this is usually not the case in genomics study. DNA information are typically acquired by tissue biopsy in cancer patients. The biopsies could be highly invasive depending on the location of tumors, hence not feasible for everyone. Also, there are concerns for DNA sequencing cost. As a result, the number of samples is small to moderate at best, typical number ranges from hundreds to thousands. On the contrary, the number of genomic features is huge. There may be tens and hundreds of thousands genetic variations. If there are multiple types genomics including gene expressions, methylations and so on, the number is even larger. Therefore, genomics data are high dimensional ($p>>n$) in most cases. Multicollinearity between nearby markers is another serious concern. Highly correlated markers should have similar regression coefficients (negatively correlated markers have opposite sign, but similar in magnitude), i.e., a group of correlated markers share the group effect size equally. But in regression, the coefficient estimates are highly unstable given high correlation. Other concerns include marker-marker interactions, missing data. 
+We will deal in detail with the Cox's proportional hazards regression in later sections, as survival is the main type of trait this thesis will be concerned  with. Incorporation of non-linearities are possible with regression, by the inclusion of higher order and interaction terms.
+
+There are several requirements to apply standard regression methods. First, the number of features $p$ should be less than the number of samples $n$ for the model to be able to fit. However, this is usually not the case in genomics studies because of the large number of features examined and the limits to sample size due to costs and logistics. For example, biopsies could be highly invasive depending on the location of tumors, and hence reserved for some patients. As a result, the number of samples is small to moderate at best, typical number ranging from hundreds to thousands. By contrast, the number of genomic features is often huge. There may be tens (e.g., gene expression) or even hundreds of thousands features (e.g., methylation). If there are multiple omic types, the numbers can be even larger. Therefore, genomics data are typically very high dimensional ($p>>n$). Multicollinearity between features is another serious concern. Highly correlated features should have similar regression coefficients (negatively correlated markers have opposite sign, but similar in magnitude). But in standard regression, the coefficient estimates are highly unstable when the features are highly correlated. Other concerns include marker-marker interactions, missing data. 
+
+Regression models cannot be fit with high-dimensional data. Therefore, regularization need to be introduced. Considering a linear regression, equation \eqref{eq1.1}, the solution to it is the ordinary least square (OLS), $\hat{\bm{\beta}}=(\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{Y}$. If $\bm{X}_{n\times p}$ is high-dimensional, $p>n$, the highest rank of matrix $(\bm{X}^T\bm{X})_{p\times p}$ is $\min(p,n)=n$, so it is a singular matrix. Mathematically, there is no solution to $\bm{\beta}$. Intuitively, the model is too complex to fit because there is not enough data. Regularization is a technique to control model complexity, by shrinking the regression coefficients. Regularized regression can be written as an optimization problem of the form:
+\begin{equation}
+    \min_{\bm{\beta}} \left\{-\ell(\bm{\beta}) + \lambda P(\bm{\beta})\right\}, \label{eq1.3}
+\end{equation}
+where $\ell(\bm{\beta})$ is the log of likelihood function. $P(\bm{\beta})$ is the regularization/penalty function, which penalizes the regression coefficients and shrinks their estimates toward zero. Shrinkage stabilizes the coefficient estimates (reduces model variance) and decreases model complexity (increases bias). Thus, by controlling the amount of shrinkage, the hyperparameter $\lambda \geq0$ controls the trade-off between model complexity (bias) and model stability (variance). Different types of regularization techniques will be discussed in section \ref{sec:pen_reg}.
+
 
 \subsection{Other machine learning methods}
 \label{sec:tree}
-Diagnosis and prognostic of disease traits with genomics information are classification and clustering problems within machine learning. Therefore, methods such as tree-based including random forest, gradient boosting machines, support vector machines, neural networks can be applied to these tasks. Classification and regression trees (CART) are known to be good at exploring complicated interaction data pattern. With the trees split at different nodes of different features, it really is multi-way interactions between features that have been split. Genomics contribute to prediction of disease traits in different ways, the linear pattern that each of them contribute a little to none is a major one. But there are also gene-gene, gene-environment interactions that linear models can barely handle if they are multi-way interactions. Tree-based methods are a great complement to linear models in genomics-based predictions. Gradient boosted tree method is an ensemble of many simple trees with only a few leaf nodes. Simple trees only achieve a little better than random prediction, however, combined trees provide state-of-the-art prediction performance. We show one of the most widely used tree boosting algorithm, `xgboost' \citep{chen2016xgboost}. It has the objective function:
+Diagnosis and prognosis of disease outcomes based on omics features are supervised classification problems in the machine learning parlance. Therefore, machine learning methods such as tree-based models, neural networks can be applied to these tasks. Classification and regression trees (CART) are known to excel at capturing complex interaction patterns. With multiple tree splits at different nodes of different features, tree-based methods are, at their essence multi-way interactions models. Omic features can contribute to prediction of disease outcomes in very different ways. Classical regression models assume additive contributions of the features but cannot handle multi-way interactions parsimoniously. Tree-based methods are a great complement to linear models in omic-based predictions. Gradient boosted tree methods are ensembles of many simple trees with only a few terminal nodes. While simple trees can often achieve only slightly better than random predictions, ensemble tree methods can often provide state-of-the-art prediction performance. We briefly describe`xgboost', one of the most widely used tree boosting algorithms \citep{chen2016xgboost}. `xgboost' has the objective function given by:
 \begin{displaymath}
 \text{obj}(\theta) = \sum_{i=1}^n l(y_i, \hat{y}_i) + \sum_{k=1}^K \Omega(f_k), 
 \end{displaymath}
 \begin{displaymath}
 \hat{y}_i = \sum_{k=1}^Kf_k(x_i).
 \end{displaymath}
-$l(y_i, \hat{y}_i)$ is the loss function: the error for instance $i$ between its label $y_i$ and model prediction $\hat{y}_i$. And the prediction function $\hat{y}_i$ is an ensemble of a series simple trees (weak learner), $\sum_{k=1}^Kf_k(x_i)$. The objective function $\text{obj}(\theta)$ is to be minimized, with regularization function $\Omega(f_k)$ to control the model complexity. The optimization algorithm involves greedily optimize one tree at a time with a gradient method. The `xgboost' style gradient tree boosting enjoys great success in many machine learning applications such as Netflix prize challenge, and a number of Kaggle challenges. Because of its tree-based nature to explore interaction patterns, it is a good alternative to linear models.
+$l(y_i, \hat{y}_i)$ is the loss function: a measure of `distance', for sample $i$, between its label $y_i$ and the model prediction $\hat{y}_i$. The prediction function $\hat{y}_i$ is an ensemble of a series of simple trees (weak learners), $\sum_{k=1}^Kf_k(x_i)$. The objective function $\text{obj}(\theta)$ is to be minimized, with the added regularization $\Omega(f_k)$ to control the model complexity. The optimization algorithm involves greedily optimizing one tree at a time with a gradient descent method. The `xgboost' style gradient tree boosting has enjoyed great success in many machine learning applications such as the Netflix prize challenge, and a number of Kaggle challenges. Because of its tree-based nature to explore interaction patterns, it is a good alternative to linear models.
 
 \subsection{Comparison of predictive methods in genomics}
-Considering the high-dimensionality of genomics data, every genomic feature contribute a little to none effect to disease traits. Hence, there is not much effect either to contribute to square, square root of genomic features, etc., the non-linear patterns of features. Gradient boosting machine, neural network are superior when sample size is large, since there is enough information for them to explore complicated non-linear patterns. On the other hand, regression represents the genomic feature effects in high dimension setting very well. Regression coefficients are effects to disease traits, they can be small to zero. This is the reason why regression is still the most widely used model in genomics, instead of tree-based methods and neural networks, despite their huge success in other areas.
+Gradient boosting machine and neural networks are often superior when the sample size is large, since there is enough information for them to explore complex non-linear patterns. But in scenarios with smaller sample sizes, regression approaches can often better capture overall feature effects in high dimension settings. This is the reason why regression methods are still the most widely used model in genomics, instead of tree-based methods and neural networks, despite their huge success in other areas.
 
-GWAS scanned the whole genome one at a time to find significant hits after controlling for family-wise error rate, typically controlling for false discovery rate to allow more power to detect associated SNPs. With GWAS, only effect sizes of single signals are given, while regression has the ability to build a multivariate model for all detected signals and other covariates to be controlled, and also makes it possible to explore gene-gene, gene-environment interactions. However, in most cases, the combined effects of genetic markers found by GWAS explain a small proportion of inter individual differences in genetic risk. In part, this reflects lack of power of standard GWAS to detect small effect markers. A number of studies have shown that prediction accuracy can be increased by including in the model markers that may not show significant association at the marginal level, e.g., \citep{allen2010hundreds}. This brings out the key question in building predictive models in genomics, feature selection: which genomic features are most effective in determining the disease traits and should therefore be included in a predictive model.
 
-The goal is to build a predictive model including genomic features collectively contribute most to disease trait, so as to maximize model's predictive power. One strategy is to include all genomics information at hand, and let the model decide which features are in the model to achieve optimal prediction performance. We know regression cannot be fit with high-dimensional data. Therefore, regularization need to be introduced. 
-
-\section{Regularized regression}
-Considering a linear regression, equation \eqref{eq1.1}, the solution to it is the ordinary least square (OLS), $\hat{\bm{\beta}}=(\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{Y}$. If $\bm{X}_{n\times p}$ is high-dimensional, $p>n$, the highest rank of matrix $(\bm{X}^T\bm{X})_{p\times p}$ is $\min(p,n)=n$, so it is a singular matrix. Mathematically, there is no solution to $\bm{\beta}$. Intuitively, the model is too complex to fit because there is not enough data. Regularization is a technique to control model complexity, by shrinking the regression coefficients. Regularized regression can be written as:
-\begin{equation}
-    \min_{\bm{\beta}} \left\{\ell(\bm{\beta)} + \lambda P(\bm{\beta)}\right\}, \label{eq1.3}
-\end{equation}
-where $\ell(\bm{\beta)}$ is the loss function/negative log likelihood. $P(\bm{\beta)}$ is the regularization/penalty function, which penalizes regression coefficients so that the estimates of coefficients shrink, making the model simpler.  $\lambda \geq0$ is a hyperparameter that controls amount of shrinkage, thus controls the model complexity. There are many type of penalty functions, we will look at some of the high profile types of regularization.
+\section{Regularized regression} \label{sec:pen_reg}
+Regularization is essential to deal with high dimensional genomics data. There are many type of penalty functions. We describe below some of the most common.
 
 \subsection{Ridge regression}
-Ridge regression is proposed by \cite{hoerl1970ridge}. It puts a regularization on magnitude of regression coefficients, namely the squared size. Ridge regression is written as the following optimization problem 
+Ridge regression was proposed by \cite{hoerl1970ridge}. It puts a regularization on magnitude of regression coefficients, namely the squared size. Ridge regression is written as the following optimization problem 
 \begin{equation}
-    \min_{\bm{\beta}} \left\{ \ell(\bm{\beta})+\lambda\|\bm{\beta}\|_2^2  \right\}. \label{eq1.4}
+    \min_{\bm{\beta}} \left\{ -\ell(\bm{\beta})+\lambda\|\bm{\beta}\|_2^2  \right\}. \label{eq1.4}
 \end{equation}
 $\lambda$ is the hyperparameter controlling the amount of regularization, the greater $\lambda$ is, the greater the amount of regularization on coefficients $\bm{\beta}$. The coefficients are shrunk toward zero. An equivalent way to write the ridge problem is 
 \begin{equation}
     \begin{aligned}
-    &\min_{\bm{\beta}} \ell(\bm{\beta}), \\
+    &\min_{\bm{\beta}} -\ell(\bm{\beta}), \\
     &\text{subject to} \qquad \|\bm{\beta}\|_2^2 \leq t, \label{eq1.5}
     \end{aligned}
 \end{equation}
-which is constrained optimization form of the above Lagrangian form \eqref{eq1.4}. The coefficients are restricted within a circle with diameter $t$, the $L-2$ norm ball. There is a one-to-one correspondence between the parameters $\lambda$ and $t$. When there are many correlated features in a standard regression model, their coefficients can be unstable due to high variance. By imposing a size constraint, the problem is alleviated. 
+which is constrained optimization form of the above Lagrangian form \eqref{eq1.4}. The coefficients are restricted within a circle with diameter $t$, the $L_2$ norm ball. There is a one-to-one correspondence between the parameters $\lambda$ and $t$. When there are many correlated features in a standard regression model, their coefficients can be unstable due to high variance. By imposing a size constraint, the problem is alleviated. 
 
-The solution to the ridge optimization problem is $\hat{\bm{\beta}}^{ridge}=(\bm{X}^T\bm{X}+\lambda \bm{I})^{-1}\bm{X}^T\bm{Y}$. Like the OLS solution, ridge regression solution is also a linear function of outcome $\bm{Y}$. It adds a positive constant $\lambda$ to the diagonal of $\bm{X}^T\bm{X}$ before inversion, making the matrix nonsingular even if $\bm{X}^T\bm{X}$ is not of full rank (high-dimensional setting). This is how ridge regression fit high-dimensional data and other ill-formed design matrix $\bm{X}$. In the case of orthonormal column spaces of $\bm{X}$, the ridge solution becomes a scaled version of the OLS solution, i.e., $\hat{\bm{\beta}}^{ridge}=\frac{1}{1+\lambda}\hat{\bm{\beta}}^{OLS}$, shrinking the coefficients by a fraction of $1+\lambda$. If the column spaces of $\bm{X}$ are not othonormal, ridge regression shrinks the directions with smallest variances the most. Those directions are in fact the principle components directions of $\bm{X}$. Principle components are linear combinations of the columns of $\bm{X}$. The first principle component has the largest sample variance (eigen value). Subsequent principal components have maximum variance subject to being orthogonal to the earlier ones. Hence, the small eigen value principle components directions are shrunk the most. 
+The solution to the ridge optimization problem is $\hat{\bm{\beta}}^{ridge}=(\bm{X}^T\bm{X}+\lambda \bm{I})^{-1}\bm{X}^T\bm{Y}$. Like the OLS solution, ridge regression solution is also a linear function of outcome $\bm{Y}$. It adds a positive constant $\lambda$ to the diagonal of $\bm{X}^T\bm{X}$ before inversion, making the matrix nonsingular even if $\bm{X}^T\bm{X}$ is not of full rank (high-dimensional setting). This is how ridge regression fit high-dimensional data and other ill-formed design matrix $\bm{X}$. In the case of orthonormal column spaces of $\bm{X}$, the ridge solution becomes a scaled version of the OLS solution, i.e., $\hat{\bm{\beta}}^{ridge}=\frac{1}{1+\lambda}\hat{\bm{\beta}}^{OLS}$, shrinking the coefficients by a fraction of $1+\lambda$. If the column spaces of $\bm{X}$ are not othonormal, ridge regression shrinks the directions with smallest variances the most. Those directions are in fact the principal components directions of $\bm{X}$. Principle components are linear combinations of the columns of $\bm{X}$. The first principle component has the largest sample variance (eigen value). Subsequent principal components have maximum variance subject to being orthogonal to the earlier ones. Hence, the small eigen value principle components directions are shrunk the most. 
 
 Ridge regression has a Bayesian interpretation, assuming linear regression:
 \begin{align*}
@@ -102,12 +83,12 @@ Ridge regression shrinks coefficients toward zero, but never to exactly zero. In
 \subsubsection{The Lasso}
 Proposed by \citep{tibshirani1996regression}, the lasso is a regularization method like ridge, but performs feature selection. The lasso optimization problem, Lagrangian form, is defined as 
 \begin{equation}
-    \min_{\bm{\beta}} \left\{ \ell(\bm{\beta})+\lambda\|\bm{\beta}\|_1  \right\}. \label{eq1.6}
+    \min_{\bm{\beta}} \left\{ -\ell(\bm{\beta})+\lambda\|\bm{\beta}\|_1  \right\}. \label{eq1.6}
 \end{equation}
 It can also be written in the equivalent constrained optimization problem just like ridge,
 \begin{equation}
     \begin{aligned}
-    &\min_{\bm{\beta}} \ell(\bm{\beta}), \\
+    &\min_{\bm{\beta}} -\ell(\bm{\beta}), \\
     &\text{subject to} \qquad \|\bm{\beta}\|_1 \leq t. \label{eq1.7}
     \end{aligned}
 \end{equation}
@@ -141,7 +122,7 @@ One can derive the results using the notion of subgradients, the detailed deriva
 There are some important properties of the lasso in addition to feature selection.
 \begin{itemize}
     \item Just like ridge regression, the lasso also has an Bayesian interpretation. The prior distribution of $\bm{\beta}$ is double exponential/Laplace for the lasso, instead of normal for ridge.
-    \item Degrees of freedom: Suppose there are $p$ features, fitting a linear regression using only a subset of $k$ of these features, if these $k$ features were chosen without regard to the outcome, the procedure spends $k$ degrees of freedom. However, if the $k$ features were chose using knowledge of the outcome, for example best subset selection, then the fitting procedure spends more than $k$ degrees of freedom. Such a fitting strategy is adaptive, as well as the lasso. The lasso, with a fixed penalty parameter $\lambda$, the number of nonzero coefficients $k_\lambda$ is an unbiased estimate of the degrees of freedom \citep{zou2007degrees, tibshirani2012degrees}. The reason that lasso has exactly $k$ degrees of freedom rather than larger than $k$ is that it not only selects features which inflates the degrees of freedom, but also shrinks the coefficients. 
+    \item Degrees of freedom: Suppose there are $p$ features, fitting a linear regression using only a subset of $k$ of these features, if these $k$ features were chosen without regard to the outcome, the procedure spends $k$ degrees of freedom. However, if the $k$ features were chosen using knowledge of the outcome, for example best subset selection, then the fitting procedure spends more than $k$ degrees of freedom. Such a fitting strategy is adaptive, as well as the lasso. The lasso, with a fixed penalty parameter $\lambda$, the number of nonzero coefficients $k_\lambda$ is an unbiased estimate of the degrees of freedom \citep{zou2007degrees, tibshirani2012degrees}. The reason that lasso has exactly $k$ degrees of freedom rather than larger than $k$ is that it not only selects features which inflates the degrees of freedom, but also shrinks the coefficients. 
     \item The number of nonzero coefficients is at most $n$, the sample size, when the data is high dimensional, $p>n$.
     \item Assume that the underlying true signal is sparse, the lasso recovers the true signals well. If the underlying truth is not sparse, the lasso does not work well. 
 \end{itemize}
@@ -149,7 +130,7 @@ There are some important properties of the lasso in addition to feature selectio
 \subsubsection{The elastic net}
 Proposed by \cite{zou2005regularization}, the elastic net combines the ridge and the lasso; it solves the convex optimization problem
 \begin{equation}
-    \min_{\beta} \left\{ \ell(\bm{\beta})+\lambda\left[\frac{1}{2}(1-c)\|\bm{\beta}\|_2^2+c\|\bm{\beta}\|_1\right] \label{eq1.10} \right\} 
+    \min_{\beta} \left\{ -\ell(\bm{\beta})+\lambda\left[\frac{1}{2}(1-c)\|\bm{\beta}\|_2^2+c\|\bm{\beta}\|_1\right] \label{eq1.10} \right\} 
 \end{equation}
 where $c\in [0,1]$ is a parameter that controls whether the penalty function to be more close to lasso or more close to ridge. When $c=1$, it reduces to $L_1$ norm, lasso penalty; when $c=0$, it reduces to squared $L_2$ norm, ridge penalty. The coordinate-wise update for the elastic net linear regression, again assuming the features are standardized to mean 0 and variance 1, is 
 \begin{equation}
@@ -158,6 +139,7 @@ where $c\in [0,1]$ is a parameter that controls whether the penalty function to 
 We can see the elastic net estimator shrinks the regression coefficients in the way of both lasso and ridge: it has the soft-thresholding portion truncating at $\lambda c$; it also shrink the coefficients proportionally with a factor of $1+\lambda(1-c)$. Hence, the elastic net shrinks the coefficients and some of them to exactly 0, so feature selection.
 
 \subsection{Discussion of ridge regression, the lasso, the elastic net, and best subset selection}
+\label{comparison_reg}
 Best subset selection finds for each $k\in\{0,1,2,\dots,p\}$ the subset of size $k$ that gives smallest residual sum of squares (validation error). Best subset selection linear regression is equivalent to $L_0$ constrained regression, when design matrix $\bm{X}$ is orthogonal:
 \begin{equation}
 \begin{aligned}
@@ -189,7 +171,7 @@ It does not shrink regression coefficients at all, but truncates at $\sqrt{2\lam
 
 Ridge regression and the elastic net are also convex optimization problems. Since ridge, lasso and elastic net share this nice property, they have a highly efficient computational algorithm in pathwise coordinate descent \citep{friedman2007pathwise}. The algorithm solves the problems along a decreasing sequence of $\lambda$ values, for the purpose of tuning $\lambda$ via cross validation. Apart from giving a path of solutions, the algorithm exploits warm start, which initializes $\hat{\bm{\beta}}$ with the solutions of previous $\lambda$ value. This works because convex objective functions have continuous solutions along the path. By starting at previous solutions, coordinate descent updates need less iterations, thus leads to a more efficient and stable algorithm. On the other hand, iterative hard thresholding is not as efficient, and only guarantees to reach local minimums due to $L_0$'s nonconvexity. 
 
-The lasso does not deal with highly correlated features very well; the solutions tend to be unstable. If there is a group of variables among which the pairwise correlations are very high, then the lasso tends to select only one variable randomly from the group. Ridge regression, on the other hand, shrink group correlated features toward each other. In other works, the features in a correlated group share the group effect evenly: having equal coefficients across the group and the coefficients add up to the group effect size. The elastic net is a combination of ridge and lasso. As we see the elastic net solution in equation \eqref{eq1.11}, it truncates the coefficients like lasso, shrink the coefficients proportionally like ridge. Therefore, it complements the inability of the lasso dealing with group correlated features with ridge regularization's grouping effect, which makes it a better choice when features are believed to have higher correlation structure.
+The lasso does not deal with highly correlated features very well; the solutions tend to be unstable. If there is a group of variables among which the pairwise correlations are very high, then the lasso tends to select only one variable randomly from the group. Ridge regression, on the other hand, shrink group correlated features toward each other. In other words, the features in a correlated group share the group effect evenly: having equal coefficients across the group and the coefficients add up to the group effect size. The elastic net is a combination of ridge and lasso. As we see the elastic net solution in equation \eqref{eq1.11}, it truncates the coefficients like lasso, shrink the coefficients proportionally like ridge. Therefore, it complements the inability of the lasso dealing with group correlated features with ridge regularization's grouping effect, which makes it a better choice when features are believed to have higher correlation structure.
 
 \subsection{Nonconvex regularized regression} \label{sec:nonconvex}
 Ridge regression, the lasso, the elastic net are all convex optimization problems. There are stable and efficient algorithms to solve it. And they always reach their global minimum solutions. Because of these, they are widely used for regularization, controlling model complexity. However, by moving from $L_2$ ridge to $L_1$ lasso, the shrinkage of some of the coefficients gets heavier, and finally being set to 0 when reach the lasso penalty. In fact, the lasso is the only convex regularization to produce sparse models. When the number of features is large and the true underlying model has only a few features, lasso is not able to shrink enough coefficients to 0. Nonconvex regularization leads to more sparse, less biased solutions. To see this, consider $L_q$ regularization,
@@ -244,7 +226,7 @@ for $\lambda\geq0$ and $\gamma>1$. The univariate solution for a MC+ regularized
         \end{cases} \label{eq1.19}      
 \end{equation}
 
-The rational of SCAD and MCP is similar in that both penalties begin by applying same penalty as the lasso, and reduce the amount of penalty as the regression coefficient gets further away from zero. As a result of the penalty trend, when the coefficient is small in magnitude, it is shrunk to zero just like lasso; however, when the coefficient is large (larger than OLS solution), there is a transition region that shrinks the coefficient less than the lasso, and after the transition region, it is equal to the OLS solution without any shrinkage. This is a trend from less biased toward 0 to unbiased estimator, for those features with large effect sizes, thereby more likely to be associated with outcomes. Without the transition region, it is the hard thresholding estimator. The difference between SCAD and MCP is in the way they make transition. Figure \ref{fig:nonconvex_est} shows the trend of penalty functions of SCAD, MCP and their threshold functions. Indexed by nonconvexity parameter $\gamma$, it bridges the gap between lasso ($\gamma=\infty$) and best subset/hard threshold ($\gamma=2_+$ for SCAD $1_+$ for MCP).   
+The rational of SCAD and MCP is similar in that both penalties begin by applying same penalty as the lasso, and reduce the amount of penalty as the regression coefficient gets further away from zero. As a result of the penalty trend, when the coefficient is small in magnitude, it is shrunk to zero just like lasso; however, when the coefficient is large (larger than OLS solution), there is a transition region that shrinks the coefficient less than the lasso, and after the transition region, it is equal to the OLS solution without any shrinkage. This is a trend from less biased toward 0 to unbiased estimator, for those features with large effect sizes, thereby more likely to be associated with outcomes. Without the transition region, it is the hard thresholding estimator. The difference between SCAD and MCP is in the way they make transition. Figure \ref{fig:nonconvex_est} shows the trend of penalty functions of SCAD, MCP and their threshold functions. Indexed by nonconvexity parameter $\gamma$, it bridges the gap between lasso ($\gamma=\infty$) and best subset/hard threshold ($\gamma=2_+$ for SCAD, $1_+$ for MCP).   
 \begin{figure}[tbh]
   \centering
   \includegraphics[width=\textwidth]{nonconvex_est}
@@ -264,3 +246,83 @@ Proposed by \cite{zou2006adaptive}, the adaptive lasso is a way of fitting model
     \min_{\bm{\beta}} \left\{ \frac{1}{2n}\|\bm{Y}-\bm{X\beta}\|_2^2+\lambda\sum_{j=1}^pw_j|\beta_j| \right\}, \label{eq1.20}
 \end{equation}
 where $w_j=1/|\tilde{\beta}_j|^v$. The adaptive lasso can be seen as an approximation to the $L_q$ regularization with $q=1-v$. We can see the adaptive lasso is convex in $\bm{\beta}$. Moreover, when the pilot estimates meet some regulatory conditions, the method recovers the true model under more general conditions than does the lasso. One can use least squares solution as the pilot estimate when $p<n$, univariate least squares solution when $p\geq n$. The indication is that, when least squares solution is small, the amount of penalty $w_j$ for feature $j$ is large, thereby $\hat{\beta}_j$ is more likely to be set to 0; when least squares solution is large, feature $j$ is penalized less (small $w_j$), then $\hat{\beta}_j$ is shrunk less, making it less likely to be 0 and less biased.
+
+\section{Incorporating meta-features into modeling process}
+As the types and the volume of genomics data are huge thanks to advanced high-throughput sequencing technologies, as well as the ever-growing annotation databases, there is increased need to integrate multiple types of genomics data, annotation data into modeling process. Because more related features provide more information to the outcome of interest, prediction performance can be improved. The traditional method is modeling one type of genomics data at a time, and combine the models in some form. As to utilizing annotation data, summary statistics, it is usually performed after modeling genomics data. This style of modeling different genomics data separately may ignore the interplay between them, the collective effect on the outcome. In this thesis, we introduced the concept meta-features, the features of the features. Now we introduce a second data matrix $\bm{Z}_{n\times p}$ that systematically stores extra data. Considering an annotation data that consists of several functional gene sets/pathways, and each gene set contains a group of genes. That is, if we have $p$ genomic features, $q$ functional gene sets (meta-features), the meta-feature matrix $\bm{Z}$ will have dimension $p\times q$, each row represents one genomic feature and has values of 0 or 1 indicating whether this genomic feature belongs to a gene set (1 indicates it belongs to the gene set, and 0 not). Table \ref{table:d1} shows the meta-feature matrix for gene sets.
+\begin{table}[tbh]
+    \centering
+    \def\arraystretch{1.5}
+    \begin{tabular}{|c|c|c|c|c}
+        \hline
+         & \textbf{gene set 1} & \textbf{gene set 2} & \textbf{gene set 3} & \dots \\ 
+        \specialrule{.1em}{.05em}{.05em}
+        gene 1 & 1 & 0 & 0 & \dots \\ 
+        \hline
+        gene 2 & 0 & 1 & 0 & \dots \\ 
+        \hline
+        gene 3 & 0 & 1 & 1 & \dots \\
+        \hline
+        \vdots & \vdots & \vdots & \vdots & $\ddots$ \\
+    \end{tabular}
+    \caption{Meta-feature matrix $\bm{Z}$ for gene sets/pathways}
+    \label{table:d1}
+    \end{table}
+
+The usage of meta-feature matrix does not limit to annotation data, in fact, it can accommodate many types of information. We discuss 2 situations to show the flexibility of putting external data into meta-feature matrix $\bm{Z}$.
+
+\begin{itemize}
+    \item There are 3 types genomics data, gene expressions, single nucleotide polymorphisms (SNPs), DNA methylation  to be integrated into the modeling process. The meta-feature matrix tells which genomic feature is SNP, gene expression, or methylation. Table \ref{table:d2} shows the indicator meta-feature matrix. For example, ILMN\_343291 is a microarray probe, gene expression; rs10853372 is a SNP locus. 
+    \begin{table}[tbh]
+    \centering
+    \def\arraystretch{1.5}
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+         & \textbf{Gene expression} & \textbf{SNP} & \textbf{Methylation} \\ 
+        \specialrule{.1em}{.05em}{.05em}
+        ILMN\_343291 & 1 & 0 & 0 \\ 
+        \hline
+        rs10853372 & 0 & 1 & 0 \\ 
+        \hline
+        ILMN\_1651210 & 1 & 0 & 0 \\
+        \hline
+        463100A3 & 0 & 0 & 1 \\
+        \hline
+        \vdots & \vdots & \vdots & \vdots \\
+    \end{tabular}
+    \caption{Meta-feature matrix $\bm{Z}$ for multiple types of genomics data}
+    \label{table:d2}
+    \end{table}
+    
+    \item There are summary statistics from similar studies on the same set of genomic features. These statistics from meta-analysis can be highly informative. They include p-values, hazard ratios, and source of features. In table \ref{table:d3}, gene BAX has a p\_value 0.0006 associated with the outcome, hazard ratio is 0.7605, the reason being included in the model is from previous GWAS studies. This is a hybrid matrix holding continuous values and indicator values: continuous values like p\-values, hazard ratios gives importance of the features; indicator variable tells the reason why the feature is included. 
+    \begin{table}[tbh]
+    \centering
+    \def\arraystretch{1.5}
+    \begin{tabular}{|c|c|c|c|c|c}
+        \hline
+         & \textbf{p\_value} & \textbf{Hazard ratio} & \textbf{Literature} & \textbf{GWAS}  \\ 
+        \specialrule{.1em}{.05em}{.05em}
+        BAX & 0.0006 & 0.7605 & 0 & 1 & \dots \\ 
+        \hline
+        IL6 & 0.2611 & -0.2077 & 1 & 0 & \dots \\ 
+        \hline
+        LDHB & $8.78\times 10^{-6}$ & 0.0768 & 0 & 1 & \dots \\
+        \hline
+        \vdots & \vdots & \vdots & \vdots & \vdots & $\ddots$ \\
+    \end{tabular}
+    \caption{Meta-feature matrix $\bm{Z}$ for summary statistics}
+    \label{table:d3}
+    \end{table}
+\end{itemize}
+
+With the above examples, we have shown the flexibility of the meta-feature matrix housing external information. Through the meta-feature matrix, we can integrate multiple types of genomics data, genomic annotation data, summary statistics from similar studies, and so on. It is the heart of our modeling process to integrate extra information that might be useful to prediction.
+
+We propose two modeling strategy based on regularized regression. In chapter \ref{cha:xrnetcox}, we incorporate meta-features with a hierarchical structure
+\[
+\min_{\bm{\beta}} \left\{-\ell(\bm{\beta})+\frac{\lambda_1}{2}\|\bm{\beta}-\bm{Z\alpha}\|_2^2+\lambda_1\|\bm{\alpha}\|_1\right\},
+\]
+where $\ell(\bm{\beta})$ is log likelihood of regressing outcome on genomic features. And the coefficients of genomic features $\bm{\beta}$ are regressed on meta-features. This integrates meta-features linearly. In chapter \ref{cha:xtunecox}, we integrate meta-features in a non-linear way by allowing differential penalties for individual features, 
+\begin{align*}
+    &\min_{\bm{\beta}} \left\{-\ell(\bm{\beta}) + \sum_{j=1}^p \lambda_j\left[\frac{1}{2}(1-c)\beta_j^2 + c|\beta_j|\right]\right\}, \\
+    &\lambda_j = e^{\bm{z_j}^T \bm{\alpha}}.
+\end{align*}
+The individualized penalty parameters $\lambda_j$'s are guided by meta-features, non-linearly with exponential function.

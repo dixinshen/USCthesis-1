@@ -6,7 +6,7 @@
 
 % Use `report` class with `USCthesis` package (style file) by Brian P. Gerkey
 % Font size should be 11 or 12 points for regular paragraph text.
-\documentclass[letterpaper,12pt]{report}
+\documentclass[dissertation,12pt]{report}
 % [options] can be any of these default/alternative flag:
 %   dissertation/thesis, final/proposal, copyright/nocopyright,
 %   fussy/sloppy, flushbottom/raggedbottom, clref/opref.
@@ -17,7 +17,10 @@
 \usepackage{setspace}
 \usepackage{tabularx}
 \usepackage{multirow}
+\usepackage{multicol}
 \usepackage{booktabs}
+\usepackage{listings}
+\usepackage{adjustbox}
 
 % Line spacing and margins in compliance with USC graduate school guidelines.
 \usepackage[margin=1in,footskip=.5in]{geometry}
@@ -25,17 +28,19 @@
 
 % Optional packages: mathematical fonts and symbols
 % You may comment this section out if you don't need them.
-\usepackage{mathptmx} % set font to Times Roman
-\usepackage[OT1]{fontenc} % font encoding for xelatex
+\usepackage[T1]{fontenc} % font encoding for xelatex
+\usepackage{amssymb}
+\let\Bbbk\relax
+\usepackage{newtxtext, newtxmath} 
 \usepackage{mathtools}
 \usepackage{amsmath}
 \DeclareMathOperator*{\argmin}{argmin}
-\usepackage{amssymb}
 \usepackage{bm}
 \usepackage{enumerate}
 
 % Optional packages: graphics
 \usepackage{graphicx}
+\usepackage{float}
 % You can use the "demo" option while editing to avoid compiling figures.
 % \usepackage[demo]{graphicx}
 % You can add absolute paths as well.
@@ -60,12 +65,12 @@
 %\AtEveryCitekey{\clearfield{pagetotal}}
 %\addbibresource{references.bib}
 
-\usepackage[authoryear]{natbib}
-\bibliographystyle{plainnat}
+\usepackage{natbib}
+\bibliographystyle{unsrtnat}
 \setcitestyle{}
 % Filler text for formatting. Comment these lines out for real writing.
-\usepackage[english]{babel}
-\usepackage{blindtext}
+%\usepackage[english]{babel}
+%\usepackage{blindtext}
 
 
 \begin{document}
@@ -130,8 +135,8 @@
 % Research Topic 2
 \include{xtunecox}
 
-% More Research Topics
-% \include{ResearchTopic2}
+% Research Topic 3
+\include{L0}
 
 % Conclusion and ongoing work
 \include{Conclusion}
